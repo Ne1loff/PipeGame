@@ -76,7 +76,7 @@ fun GameBoard(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                val modifier = Modifier.width(150.dp)
+                val modifier = Modifier.weight(1f)
                 SettingsSelector(
                     label = "Уровень",
                     initialSelectIndex = 0,
