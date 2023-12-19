@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pipegame.game.core.GameManager
 import com.example.pipegame.game.core.GameState
 import com.example.pipegame.game.core.model.GameComplexity
+import com.example.pipegame.game.core.model.GameLevel
 import com.example.pipegame.game.core.model.Pipe
 import com.example.pipegame.game.core.model.Position
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -82,7 +83,8 @@ class GameViewModel(private val gameManager: GameManager) : ViewModel() {
                     finisPosition = level.output
                 ),
                 currentComplexity = settings.complexity,
-                maxSteps = level.maxSteps,
+                maxSteps = gameManager.getRoundSteps(),
+                remainingSteps = gameManager.getRemainingSteps(),
                 board = gameManager.board(),
                 gameState = gameManager.getGameState()
             )
@@ -107,9 +109,12 @@ class GameViewModel(private val gameManager: GameManager) : ViewModel() {
 
     fun setComplexity(complexity: GameComplexity) {
         gameManager.reconfigure(gameManager.gameSettings.copy(complexity = complexity))
-        viewModelState.update {
-            it.copy(currentComplexity = gameManager.gameSettings.complexity)
-        }
+        setupState()
+    }
+
+    fun changeLevel(level: GameLevel) {
+        gameManager.reconfigure(gameManager.gameSettings.copy(level = level))
+        setupState()
     }
 
     companion object {

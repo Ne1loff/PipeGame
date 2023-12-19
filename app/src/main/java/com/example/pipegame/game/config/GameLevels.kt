@@ -28,3 +28,5 @@ val LVL_1: GameLevel = GameLevel(
 
 fun toMap(map: Array<Array<PipeMeta?>>): Array<PipeMeta?> =
     map.flatMap { it.asSequence() }.toTypedArray()
+
+val LEVELS = listOf(LVL_1)

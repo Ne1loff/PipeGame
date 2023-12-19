@@ -93,16 +93,20 @@ class GameManager private constructor(var gameSettings: Settings) : GameResultNo
     fun getGameState() = gameState
 
     fun rotate(position: Position) {
-        gameState = GameState.IN_PROGRESS
-
-        if ((remainingSteps--) <= 0) {
-            lose()
+        if (remainingSteps <= 0) {
             return
         }
+        gameState = GameState.IN_PROGRESS
+
 
         connectionsBoard[position.inArray(boardSize)]?.rotate()
         updateConnections(position)
         checkConnection()
+
+        remainingSteps -= 1
+        if (remainingSteps == 0 && gameState != GameState.RESULT_WIN) {
+            lose()
+        }
     }
 
     private fun win() {

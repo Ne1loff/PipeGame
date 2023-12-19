@@ -52,7 +52,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //Greeting("Android")
-                    GameBoard(uiState, gameViewModel::rotate)
+                    GameBoard(
+                        gameUiState = uiState,
+                        onRotate = gameViewModel::rotate,
+                        onRestart = gameViewModel::restart,
+                        onLevelChange = gameViewModel::changeLevel,
+                        onComplexityChange = gameViewModel::setComplexity,
+                    )
                 }
             }
         }
